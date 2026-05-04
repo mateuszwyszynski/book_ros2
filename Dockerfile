@@ -32,6 +32,8 @@ RUN userdel -r ubuntu && groupadd -g $GID -o $USERNAME 2>/dev/null && \
 USER ${USERNAME}
 RUN echo "export ROS_DOMAIN_ID=$((${UID} % 102))" >> ~/.zshenv && \
     echo "export ROS_DOMAIN_ID=$((${UID} % 102))" >> ~/.bashrc && \
+    echo "export QT_XCB_GL_INTEGRATION=none" >> ~/.zshenv && \
+    echo "export QT_XCB_GL_INTEGRATION=none" >> ~/.bashrc && \
     echo "source /opt/ros/jazzy/setup.zsh" >> ~/.zshenv && \
     echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 
@@ -70,3 +72,6 @@ RUN cd /workspace/bookros2_ws && \
 RUN cd /workspace/bookros2_ws && \
     . /opt/ros/jazzy/setup.sh && \
     colcon build --symlink-install
+
+RUN echo "source /workspace/bookros2_ws/install/setup.zsh" >> ~/.zshenv && \
+    echo "source /workspace/bookros2_ws/install/setup.bash" >> ~/.bashrc

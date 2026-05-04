@@ -2,7 +2,7 @@
     "name": "Ubuntu",
     "dockerComposeFile": "docker-compose.yml",
     "service": "devcontainer",
-    "workspaceFolder": "/workspace/bookros2_ws/src/book_ros2",
+    "workspaceFolder": "/workspace/bookros2_ws",
     "initializeCommand": ".devcontainer/setup_host.sh",
     "customizations": {
         "vscode": {

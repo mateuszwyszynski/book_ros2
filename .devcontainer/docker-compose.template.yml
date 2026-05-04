@@ -6,7 +6,6 @@ services:
       args:
         UID: ${USER_ID}
         GID: ${GROUP_ID}
-    working_dir: /workspace/bookros2_ws/
     command: sleep infinity
     volumes:
       - ..:/workspace/bookros2_ws/src/book_ros2
