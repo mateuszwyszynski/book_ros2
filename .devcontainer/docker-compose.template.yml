@@ -1,0 +1,17 @@
+services:
+  devcontainer:
+    build:
+      context: ..
+      dockerfile: ./Dockerfile
+      args:
+        UID: ${USER_ID}
+        GID: ${GROUP_ID}
+    working_dir: /workspace/bookros2_ws/
+    command: sleep infinity
+    volumes:
+      - ..:/workspace/bookros2_ws/src/book_ros2
+      - /workspace/bookros2_ws/build # don't override
+      - /workspace/bookros2_ws/install # don't override
+      - /workspace/bookros2_ws/log # don't override
+      - ${HOST_CLAUDE_DIR}:/home/dev/.claude # to preserve chat history and tokens across container rebuilds
+    network_mode: host

@@ -1,0 +1,22 @@
+{
+    "name": "Ubuntu",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "devcontainer",
+    "workspaceFolder": "/workspace/bookros2_ws/src/book_ros2",
+    "initializeCommand": ".devcontainer/setup_host.sh",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "charliermarsh.ruff",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "Ahern.urscript",
+                "ms-vscode.cpptools",
+                "redhat.vscode-yaml",
+                "docker.docker",
+                "redhat.vscode-xml",
+                "biomejs.biome"
+            ]
+        }
+    }
+}
