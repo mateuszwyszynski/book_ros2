@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install common dependencies
 RUN apt update && apt upgrade -y && \
-    apt install -y zsh tzdata ca-certificates wget curl nano neovim less git build-essential software-properties-common cmake sudo iproute2 htop && \
+    apt install -y zsh tzdata ca-certificates wget curl nano neovim less git build-essential software-properties-common cmake sudo iproute2 htop mesa-utils && \
     add-apt-repository universe && apt update && \
     rm /etc/localtime && ln -s /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
 
@@ -32,8 +32,6 @@ RUN userdel -r ubuntu && groupadd -g $GID -o $USERNAME 2>/dev/null && \
 USER ${USERNAME}
 RUN echo "export ROS_DOMAIN_ID=$((${UID} % 102))" >> ~/.zshenv && \
     echo "export ROS_DOMAIN_ID=$((${UID} % 102))" >> ~/.bashrc && \
-    echo "export QT_XCB_GL_INTEGRATION=none" >> ~/.zshenv && \
-    echo "export QT_XCB_GL_INTEGRATION=none" >> ~/.bashrc && \
     echo "source /opt/ros/jazzy/setup.zsh" >> ~/.zshenv && \
     echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 
@@ -65,11 +63,13 @@ RUN --mount=type=bind,source=.,target=/workspace/bookros2_ws/src/book_ros2 \
     cp /workspace/bookros2_ws/src/book_ros2/third_parties.repos /tmp/ && \
     cd /workspace/bookros2_ws/src && vcs import . < /tmp/third_parties.repos
 
-RUN cd /workspace/bookros2_ws && \
+RUN --mount=type=bind,source=.,target=/workspace/bookros2_ws/src/book_ros2 \
+    cd /workspace/bookros2_ws && \
     . /opt/ros/jazzy/setup.sh && \
     rosdep install --from-paths src --ignore-src -r -y
 
-RUN cd /workspace/bookros2_ws && \
+RUN --mount=type=bind,source=.,target=/workspace/bookros2_ws/src/book_ros2 \
+    cd /workspace/bookros2_ws && \
     . /opt/ros/jazzy/setup.sh && \
     colcon build --symlink-install
 
